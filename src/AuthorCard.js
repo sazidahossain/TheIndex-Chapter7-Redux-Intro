@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+import * as actionCreators from "./store/action";
+import { connect } from "react-redux";
 class AuthorCard extends Component {
   render() {
     return (
@@ -18,11 +19,25 @@ class AuthorCard extends Component {
             </h5>
             <small className="card-text">{this.props.books.length} books</small>
           </div>
-          <button className="btn btn-danger"> DELETE</button>
+          <button
+            className="btn btn-danger"
+            onClick={author => this.props.DeleteAuthor(this.props.author)}
+          >
+            {" "}
+            DELETE
+          </button>
         </div>
       </div>
     );
   }
 }
 
-export default AuthorCard;
+const mapDispatchToProps = dispatch => {
+  return {
+    DeleteAuthor: author => dispatch(actionCreators.DeleteAuthor(author))
+  };
+};
+export default connect(
+  null,
+  mapDispatchToProps
+)(AuthorCard);

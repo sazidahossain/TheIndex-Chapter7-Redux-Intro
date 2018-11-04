@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+import { connect } from "react-redux";
+import * as actionCreators from "./store/action";
 // Data
 import authors from "./data";
 
@@ -43,12 +44,20 @@ class App extends Component {
             <Sidebar addAuthorHandler={this.addAuthor} />
           </div>
           <div className="content col-10">
-            <AuthorsList authors={this.state.authors} />
+            <AuthorsList authors={this.props.authors} />
           </div>
         </div>
       </div>
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    authors: state.authors
+  };
+};
 
-export default App;
+export default connect(
+  mapStateToProps,
+  null
+)(App);
